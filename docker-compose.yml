@@ -18,5 +18,21 @@ services:
       retries: 5
       start_period: 5s
 
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: digital_card_app
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      DATABASE_URL: postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-digital_card_db}?schema=public
+    ports:
+      - "${PORT:-3000}:3000"
+
 volumes:
   postgres_data:
