@@ -1,0 +1,162 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+"""
+Профессиональная сертификация (Postgres Professional DBA/QPT, BaseALT Linux)
+"""
+type Certification {
+  """Код сертификации (например: QPT, DBA3, DBA2, DBA1)"""
+  code: String!
+
+  """Уникальный идентификатор сертификата (UUID)"""
+  id: ID!
+
+  """Сертифицирующий центр (Postgres Professional, BaseALT)"""
+  issuer: String!
+
+  """Полное название курса / сертификации"""
+  title: String!
+
+  """Год получения сертификата"""
+  year: Int!
+}
+
+"""Место коммерческой работы и ключевые достижения"""
+type Experience {
+  """Список ключевых инженерных достижений на данном месте работы"""
+  achievements: [String!]!
+
+  """Название компании / организации"""
+  company: String!
+
+  """Уникальный идентификатор записи опыта работы (UUID)"""
+  id: ID!
+
+  """Период работы"""
+  period: String!
+
+  """Занимаемая должность"""
+  position: String!
+}
+
+"""
+Язык возвращаемых данных профиля (EN — английский по умолчанию, RU — русский)
+"""
+enum Language {
+  """English language (default)"""
+  EN
+
+  """Русский язык"""
+  RU
+}
+
+"""
+Стратегия оптимизации вложенных полей GraphQL против проблемы N+1: DATALOADER (батчинг через WHERE profile_id IN) или AST_JOIN (анализ дерева запроса @Info и выборка через Prisma include)
+"""
+enum OptimizationStrategy {
+  """
+  Паттерн AST Lookahead (@Info): анализирует запрошенные клиентом поля в дереве GraphQL-запроса и загружает только нужные связи заранее через Prisma include
+  """
+  AST_JOIN
+
+  """
+  Паттерн DataLoader: склеивает запросы дочерних резолверов в рамках одного тика Event Loop в батч-запросы WHERE profile_id IN ($1)
+  """
+  DATALOADER
+}
+
+"""Цифровая визитка специалиста (основной профиль и связанные коллекции)"""
+type Profile {
+  certifications: [Certification!]!
+
+  """Краткое профессиональное описание (Summary / Bio)"""
+  description: String!
+
+  """Контактный Email"""
+  email: String!
+  experience: [Experience!]!
+
+  """Уникальный идентификатор профиля (UUID)"""
+  id: ID!
+  links: [SocialLink!]!
+
+  """Локация и готовность к релокации"""
+  location: String!
+
+  """Имя и фамилия специалиста"""
+  name: String!
+
+  """Контактный телефон"""
+  phone: String!
+  projects: [Project!]!
+  skills: [Skill!]!
+
+  """Никнейм в Telegram"""
+  telegram: String!
+
+  """Специализация / грейд / основной профиль"""
+  title: String!
+}
+
+"""
+Реализованный проект (Open-Source репозиторий или коммерческая система под NDA)
+"""
+type Project {
+  """Подробное описание архитектуры и решенных бизнес-задач"""
+  description: String!
+
+  """Уникальный идентификатор проекта (UUID)"""
+  id: ID!
+
+  """Флаг нахождения исходного кода под корпоративным NDA"""
+  isNda: Boolean!
+
+  """Название проекта"""
+  name: String!
+
+  """Стек использованных технологий"""
+  techStack: [String!]!
+
+  """Ссылка на проект/репозиторий GitHub или статус коммерческого NDA"""
+  url: String!
+}
+
+type Query {
+  """
+  Получить цифровую визитку специалиста (профиль, ссылки, навыки, опыт работы, проекты и сертификации). По умолчанию возвращает данные на английском языке (EN) с оптимизацией вложенных запросов через DataLoader.
+  """
+  profile(
+    """Язык возвращаемых данных: EN (по умолчанию) или RU"""
+    lang: Language! = EN
+
+    """
+    Стратегия оптимизации запросов к БД для вложенных полей: DATALOADER (по умолчанию) или AST_JOIN
+    """
+    strategy: OptimizationStrategy! = DATALOADER
+  ): Profile!
+}
+
+"""Профессиональный технический навык или технология"""
+type Skill {
+  """Категория навыка (Databases, Back-End, DevOps и т.д.)"""
+  category: String!
+
+  """Уникальный идентификатор навыка (UUID)"""
+  id: ID!
+
+  """Название технологии или компетенции"""
+  name: String!
+}
+
+"""Ссылка на профессиональный ресурс (GitHub, Telegram, Email и др.)"""
+type SocialLink {
+  """Уникальный идентификатор ссылки (UUID)"""
+  id: ID!
+
+  """Название платформы (GitHub, Telegram, LinkedIn)"""
+  platform: String!
+
+  """URL-адрес профиля или ресурса"""
+  url: String!
+}
