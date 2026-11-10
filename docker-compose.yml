@@ -33,6 +33,8 @@ services:
       DATABASE_URL: postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-digital_card_db}?schema=public
     ports:
       - "${PORT:-3000}:3000"
+    volumes:
+      - ./public:/app/public:ro
 
 volumes:
   postgres_data:
