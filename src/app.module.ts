@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { PrismaModule } from './prisma/prisma.module';
 
 /**
  * Корневой модуль приложения (AppModule).
@@ -18,6 +19,7 @@ import { ConfigModule } from '@nestjs/config';
       isGlobal: true, // Делает ConfigService доступным во всех модулях без повторного импорта
       envFilePath: '.env',
     }),
+    PrismaModule,
   ],
 })
 export class AppModule {}

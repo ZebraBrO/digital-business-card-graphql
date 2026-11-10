@@ -1,0 +1,136 @@
+// ============================================================================
+// Prisma Schema — Единый источник правды (Single Source of Truth) для:
+// 1. Генерации SQL-миграций PostgreSQL (DDL: таблицы, внешние ключи, индексы)
+// 2. Генерации строго типизированного TypeScript-клиента (@prisma/client)
+// ============================================================================
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/// Основной профиль специалиста (Цифровая визитка)
+model Profile {
+  id            String   @id @default(uuid()) @db.Uuid
+  /// Уникальный символьный ключ для идемпотентного заполнения (upsert в seed.ts)
+  slug          String   @unique @db.VarChar(100)
+
+  // Билингвальные поля (EN / RU) для мгновенной отдачи на нужном языке без лишних JOIN
+  nameEn        String   @map("name_en") @db.VarChar(150)
+  nameRu        String   @map("name_ru") @db.VarChar(150)
+  titleEn       String   @map("title_en") @db.VarChar(255)
+  titleRu       String   @map("title_ru") @db.VarChar(255)
+  descriptionEn String   @map("description_en") @db.Text
+  descriptionRu String   @map("description_ru") @db.Text
+  locationEn    String   @map("location_en") @db.VarChar(255)
+  locationRu    String   @map("location_ru") @db.VarChar(255)
+
+  // Контактные данные
+  email         String   @db.VarChar(150)
+  phone         String   @db.VarChar(100)
+  telegram      String   @db.VarChar(100)
+
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  // Связи 1:N (Один профиль -> много записей)
+  links          SocialLink[]
+  skills         Skill[]
+  experience     Experience[]
+  projects       Project[]
+  certifications Certification[]
+
+  @@map("profiles")
+}
+
+/// Профессиональные ссылки (GitHub, LinkedIn, Telegram, Email)
+model SocialLink {
+  id        String  @id @default(uuid()) @db.Uuid
+  platform  String  @db.VarChar(100)
+  url       String  @db.VarChar(500)
+  sortOrder Int     @default(0) @map("sort_order")
+
+  profileId String  @map("profile_id") @db.Uuid
+  profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+
+  // Составной индекс: ускоряет выборку ссылок профиля сразу в нужном порядке (Index Scan без Sort)
+  @@index([profileId, sortOrder], name: "idx_social_links_profile_sort")
+  @@map("social_links")
+}
+
+/// Профессиональные навыки (с группировкой по категориям)
+model Skill {
+  id         String  @id @default(uuid()) @db.Uuid
+  name       String  @db.VarChar(150)
+  categoryEn String  @map("category_en") @db.VarChar(150)
+  categoryRu String  @map("category_ru") @db.VarChar(150)
+  sortOrder  Int     @default(0) @map("sort_order")
+
+  profileId  String  @map("profile_id") @db.Uuid
+  profile    Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+
+  @@index([profileId, sortOrder], name: "idx_skills_profile_sort")
+  @@map("skills")
+}
+
+/// Опыт работы (компания, должность, период и массив ключевых достижений)
+model Experience {
+  id             String   @id @default(uuid()) @db.Uuid
+  companyEn      String   @map("company_en") @db.VarChar(200)
+  companyRu      String   @map("company_ru") @db.VarChar(200)
+  positionEn     String   @map("position_en") @db.VarChar(200)
+  positionRu     String   @map("position_ru") @db.VarChar(200)
+  periodEn       String   @map("period_en") @db.VarChar(150)
+  periodRu       String   @map("period_ru") @db.VarChar(150)
+  /// Нативный массив TEXT[] в PostgreSQL для списка достижений
+  achievementsEn String[] @map("achievements_en")
+  achievementsRu String[] @map("achievements_ru")
+  sortOrder      Int      @default(0) @map("sort_order")
+
+  profileId      String   @map("profile_id") @db.Uuid
+  profile        Profile  @relation(fields: [profileId], references: [id], onDelete: Cascade)
+
+  @@index([profileId, sortOrder], name: "idx_experiences_profile_sort")
+  @@map("experiences")
+}
+
+/// Проекты (открытые репозитории на GitHub и ключевые коммерческие системы под NDA)
+model Project {
+  id            String   @id @default(uuid()) @db.Uuid
+  nameEn        String   @map("name_en") @db.VarChar(255)
+  nameRu        String   @map("name_ru") @db.VarChar(255)
+  descriptionEn String   @map("description_en") @db.Text
+  descriptionRu String   @map("description_ru") @db.Text
+  /// Ссылка на репозиторий/проект или пометка о корпоративном NDA
+  url           String   @db.VarChar(500)
+  techStack     String[] @map("tech_stack")
+  isNda         Boolean  @default(false) @map("is_nda")
+  sortOrder     Int      @default(0) @map("sort_order")
+
+  profileId     String   @map("profile_id") @db.Uuid
+  profile       Profile  @relation(fields: [profileId], references: [id], onDelete: Cascade)
+
+  @@index([profileId, sortOrder], name: "idx_projects_profile_sort")
+  @@map("projects")
+}
+
+/// Профессиональные сертификации (Postgres Pro DBA/QPT, BaseALT Linux)
+model Certification {
+  id        String  @id @default(uuid()) @db.Uuid
+  code      String  @db.VarChar(50)
+  titleEn   String  @map("title_en") @db.VarChar(300)
+  titleRu   String  @map("title_ru") @db.VarChar(300)
+  issuer    String  @db.VarChar(150)
+  year      Int
+  sortOrder Int     @default(0) @map("sort_order")
+
+  profileId String  @map("profile_id") @db.Uuid
+  profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+
+  @@index([profileId, sortOrder], name: "idx_certifications_profile_sort")
+  @@map("certifications")
+}
