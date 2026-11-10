@@ -46,7 +46,6 @@
       overflow-x: hidden;
     }
 
-    /* Фоновое свечение и легкая зернистость (намек на глубокий космос без иллюстраций) */
     body::before {
       content: '';
       position: fixed;
@@ -89,7 +88,7 @@
       margin: 0 auto;
       padding: 44px 32px 80px;
       display: grid;
-      grid-template-columns: 340px 1fr;
+      grid-template-columns: 350px 1fr;
       gap: 56px;
       align-items: start;
     }
@@ -102,7 +101,6 @@
       }
     }
 
-    /* Левая колонка (фиксированный профиль и управление) */
     .sidebar {
       position: sticky;
       top: 36px;
@@ -149,15 +147,28 @@
       font-weight: 700;
       letter-spacing: -0.02em;
       line-height: 1.2;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
 
-    .role {
-      font-size: 0.92rem;
-      color: var(--text-secondary);
+    .role-block {
       margin-bottom: 20px;
       padding-bottom: 20px;
       border-bottom: 1px solid var(--border);
+    }
+
+    .role-main {
+      font-size: 0.94rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      margin-bottom: 4px;
+    }
+
+    .role-stack {
+      font-family: var(--mono);
+      font-size: 0.73rem;
+      color: var(--accent);
+      white-space: nowrap;
+      letter-spacing: -0.01em;
     }
 
     .contact-list {
@@ -209,7 +220,6 @@
       background: rgba(139, 92, 246, 0.16);
     }
 
-    /* Панель управления GraphQL и языком */
     .control-panel {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -267,7 +277,7 @@
       background: rgba(139, 92, 246, 0.12);
       color: var(--text-main);
       font-family: var(--mono);
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       font-weight: 500;
       margin-top: 4px;
       transition: background 0.15s, border-color 0.15s;
@@ -278,7 +288,6 @@
       border-color: var(--accent-bright);
     }
 
-    /* Правая основная колонка */
     .content {
       display: flex;
       flex-direction: column;
@@ -316,7 +325,6 @@
       padding-left: 20px;
     }
 
-    /* Таймлайн опыта работы */
     .timeline {
       display: flex;
       flex-direction: column;
@@ -342,12 +350,18 @@
     }
 
     .exp-header {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
+      display: grid;
+      grid-template-columns: 1fr auto;
       align-items: baseline;
-      gap: 8px;
+      gap: 16px;
       margin-bottom: 4px;
+    }
+
+    @media (max-width: 640px) {
+      .exp-header {
+        grid-template-columns: 1fr;
+        gap: 4px;
+      }
     }
 
     .exp-company {
@@ -360,6 +374,7 @@
       font-family: var(--mono);
       font-size: 0.78rem;
       color: var(--accent);
+      white-space: nowrap;
     }
 
     .exp-position {
@@ -392,7 +407,6 @@
       color: var(--accent);
     }
 
-    /* Проекты (строгий реестр без шаблонных карточек) */
     .projects-list {
       display: flex;
       flex-direction: column;
@@ -402,31 +416,34 @@
     .project-row {
       padding: 22px 0;
       border-bottom: 1px solid var(--border);
-      display: grid;
-      grid-template-columns: 1fr;
+      display: flex;
+      flex-direction: column;
       gap: 10px;
     }
 
+    /* Жесткая двухколоночная сетка: длинный заголовок переносится внутри левой колонки и не выталкивает бейдж */
     .project-top {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 12px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: start;
+      gap: 16px;
     }
 
     .project-title {
       font-size: 1.05rem;
       font-weight: 600;
       color: var(--text-main);
+      line-height: 1.35;
     }
 
     .project-access {
       font-family: var(--mono);
       font-size: 0.72rem;
-      padding: 2px 8px;
+      padding: 3px 9px;
       border: 1px solid var(--border);
       color: var(--text-muted);
+      white-space: nowrap;
+      flex-shrink: 0;
     }
 
     .project-access.open {
@@ -461,7 +478,6 @@
       color: var(--text-muted);
     }
 
-    /* Таблица навыков */
     .skills-table {
       display: flex;
       flex-direction: column;
@@ -497,7 +513,6 @@
       color: var(--text-secondary);
     }
 
-    /* Сертификации */
     .cert-table {
       display: flex;
       flex-direction: column;
@@ -506,7 +521,7 @@
 
     .cert-item {
       display: grid;
-      grid-template-columns: 110px 1fr auto;
+      grid-template-columns: 95px 1fr auto;
       gap: 16px;
       padding: 13px 0;
       border-bottom: 1px solid var(--border);
@@ -539,7 +554,6 @@
       white-space: nowrap;
     }
 
-    /* Блок телеметрии GraphQL */
     .telemetry-box {
       background: #050309;
       border: 1px solid var(--border);
@@ -588,9 +602,9 @@
             <button type="button" data-strategy="AST_JOIN">AST Join</button>
           </div>
         </div>
-        <a class="apollo-btn" href="/graphql" target="_blank" rel="noopener">
+        <a class="apollo-btn" id="sandboxLink" href="/graphql?lang=EN&strategy=DATALOADER" target="_blank" rel="noopener">
           <span>Open Apollo Sandbox</span>
-          <span>/graphql &rarr;</span>
+          <span id="sandboxLinkLabel">/graphql (EN) &rarr;</span>
         </a>
       </div>
     </aside>
@@ -610,7 +624,7 @@
         experience: 'Commercial Experience',
         projects: 'Selected Systems & Projects',
         skills: 'Technical Stack',
-        certs: 'Certifications',
+        certs: 'Certifications & Courses',
         telemetry: 'GraphQL Query Telemetry',
         location: 'Location',
         phone: 'Phone',
@@ -624,13 +638,13 @@
         experience: 'Коммерческий опыт',
         projects: 'Проекты и внедренные системы',
         skills: 'Технический стек',
-        certs: 'Сертификации',
+        certs: 'Сертификации и курсы',
         telemetry: 'Телеметрия GraphQL-запроса',
         location: 'Локация',
         phone: 'Телефон',
         email: 'Почта',
         telegram: 'Telegram',
-        nda: ' ВНУТРЕННИЙ / NDA',
+        nda: 'ВНУТРЕННИЙ / NDA',
         open: 'OPEN SOURCE',
       },
     };
@@ -643,7 +657,16 @@
         .replace(/"/g, '&quot;');
     }
 
+    function updateSandboxLink() {
+      const link = document.getElementById('sandboxLink');
+      const label = document.getElementById('sandboxLinkLabel');
+      link.href = `/graphql?lang=${encodeURIComponent(currentLang)}&strategy=${encodeURIComponent(currentStrategy)}`;
+      label.innerHTML = `/graphql (${currentLang}) &rarr;`;
+    }
+
     async function fetchProfile() {
+      updateSandboxLink();
+
       const query = `query GetDigitalCard($lang: Language!, $strategy: OptimizationStrategy!) {
   profile(lang: $lang, strategy: $strategy) {
     name
@@ -680,13 +703,20 @@
     function render(p, query, durationMs) {
       const l = LABELS[currentLang];
 
+      const titleParts = String(p.title).split('\n');
+      const roleMain = titleParts[0] || p.title;
+      const roleStack = titleParts[1] || '(PHP / PostgreSQL / TypeScript / Linux)';
+
       document.getElementById('sidebarProfile').innerHTML = `
         <div class="status-line">
           <span class="status-dot"></span>
           <span>GRAPHQL NODE // ONLINE</span>
         </div>
         <h1 class="name">${escapeHtml(p.name)}</h1>
-        <div class="role">${escapeHtml(p.title)}</div>
+        <div class="role-block">
+          <div class="role-main">${escapeHtml(roleMain)}</div>
+          <div class="role-stack">${escapeHtml(roleStack)}</div>
+        </div>
         <ul class="contact-list">
           <li>
             <span class="contact-label">${l.location}</span>

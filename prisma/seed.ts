@@ -11,14 +11,14 @@ async function main(): Promise<void> {
       update: {
         nameEn: 'Dmitrii Sivirin',
         nameRu: 'Дмитрий Сивирин',
-        titleEn: 'Full-Stack / Back-End Engineer (PHP / TypeScript / PostgreSQL / Linux)',
-        titleRu: 'Full-Stack / Backend-разработчик (PHP / TypeScript / PostgreSQL / Linux)',
+        titleEn: 'Full-Stack / Back-End Engineer\n(PHP / PostgreSQL / TypeScript / Linux)',
+        titleRu: 'Full-Stack / Backend-разработчик\n(PHP / PostgreSQL / TypeScript / Linux)',
         descriptionEn:
-          'Full-Stack & Back-End Engineer with over 4.5 years of commercial experience building, modernizing, and optimizing enterprise web applications, APIs, relational databases, and Linux infrastructure. Certified PostgreSQL DBA & Query Performance Tuning specialist (completed the full 4-tier Postgres Professional certification track). Experienced in migrating legacy C# monoliths to modern Web architectures, building data processing pipelines in Python (Pandas, OpenPyXL), and developing scalable services with PHP, TypeScript/Node.js, and PostgreSQL.',
+          'Full-Stack & Back-End Engineer with over 4.5 years of commercial experience building, modernizing, and optimizing enterprise web applications, REST/GraphQL APIs, relational databases, and Linux infrastructure. Core expertise in PHP (OOP, MVC, Laravel), certified PostgreSQL DBA & Query Performance Tuning specialist (completed the full 4-tier Postgres Professional certification track). Experienced in migrating legacy C# monoliths to modern Web architectures, building data processing pipelines in Python (Pandas, OpenPyXL), and developing services with TypeScript, Node.js, and NestJS.',
         descriptionRu:
-          'Full-Stack и Backend-разработчик с коммерческим опытом более 4.5 лет в проектировании, модернизации и оптимизации корпоративных веб-приложений, API, реляционных баз данных и Linux-инфраструктуры. Сертифицированный специалист по администрированию и оптимизации запросов PostgreSQL (полный цикл из 4 сертификаций Postgres Professional DBA + QPT). Имею большой практический опыт переноса легаси C#-монолитов в веб, автоматизации бизнес-процессов и ETL-обработки данных на Python (Pandas, OpenPyXL), а также разработки на PHP, TypeScript/Node.js и PostgreSQL.',
-        locationEn: 'Kostanay, Kazakhstan / Surgut, Russia (Ready to relocate)',
-        locationRu: 'Костанай, Казахстан / Сургут, Россия (Готов к релокации)',
+          'Full-Stack и Backend-разработчик с коммерческим опытом более 4.5 лет в проектировании, модернизации и оптимизации корпоративных веб-приложений, API, реляционных баз данных и Linux-инфраструктуры. Основная специализация: PHP (OOP, MVC, Laravel) и глубокая экспертиза в PostgreSQL (полный цикл из 4 сертификаций Postgres Professional DBA + QPT). Большой практический опыт переноса легаси C#-монолитов в веб, автоматизации бизнес-процессов и ETL-обработки данных на Python (Pandas, OpenPyXL), а также разработки сервисов на TypeScript, Node.js и NestJS.',
+        locationEn: 'Kostanay, Kazakhstan (Ready to relocate / Remote)',
+        locationRu: 'Костанай, Казахстан (Готов к релокации / Удаленно)',
         email: 'thezebrabro@gmail.com',
         phone: '+7 (705) 590-24-73 / +7 (906) 895-98-10',
         telegram: '@zebrabro',
@@ -27,14 +27,14 @@ async function main(): Promise<void> {
         slug: 'dmitrii-sivirin',
         nameEn: 'Dmitrii Sivirin',
         nameRu: 'Дмитрий Сивирин',
-        titleEn: 'Full-Stack / Back-End Engineer (PHP / TypeScript / PostgreSQL / Linux)',
-        titleRu: 'Full-Stack / Backend-разработчик (PHP / TypeScript / PostgreSQL / Linux)',
+        titleEn: 'Full-Stack / Back-End Engineer\n(PHP / PostgreSQL / TypeScript / Linux)',
+        titleRu: 'Full-Stack / Backend-разработчик\n(PHP / PostgreSQL / TypeScript / Linux)',
         descriptionEn:
-          'Full-Stack & Back-End Engineer with over 4.5 years of commercial experience building, modernizing, and optimizing enterprise web applications, APIs, relational databases, and Linux infrastructure. Certified PostgreSQL DBA & Query Performance Tuning specialist (completed the full 4-tier Postgres Professional certification track). Experienced in migrating legacy C# monoliths to modern Web architectures, building data processing pipelines in Python (Pandas, OpenPyXL), and developing scalable services with PHP, TypeScript/Node.js, and PostgreSQL.',
+          'Full-Stack & Back-End Engineer with over 4.5 years of commercial experience building, modernizing, and optimizing enterprise web applications, REST/GraphQL APIs, relational databases, and Linux infrastructure. Core expertise in PHP (OOP, MVC, Laravel), certified PostgreSQL DBA & Query Performance Tuning specialist (completed the full 4-tier Postgres Professional certification track). Experienced in migrating legacy C# monoliths to modern Web architectures, building data processing pipelines in Python (Pandas, OpenPyXL), and developing services with TypeScript, Node.js, and NestJS.',
         descriptionRu:
-          'Full-Stack и Backend-разработчик с коммерческим опытом более 4.5 лет в проектировании, модернизации и оптимизации корпоративных веб-приложений, API, реляционных баз данных и Linux-инфраструктуры. Сертифицированный специалист по администрированию и оптимизации запросов PostgreSQL (полный цикл из 4 сертификаций Postgres Professional DBA + QPT). Имею большой практический опыт переноса легаси C#-монолитов в веб, автоматизации бизнес-процессов и ETL-обработки данных на Python (Pandas, OpenPyXL), а также разработки на PHP, TypeScript/Node.js и PostgreSQL.',
-        locationEn: 'Kostanay, Kazakhstan / Surgut, Russia (Ready to relocate)',
-        locationRu: 'Костанай, Казахстан / Сургут, Россия (Готов к релокации)',
+          'Full-Stack и Backend-разработчик с коммерческим опытом более 4.5 лет в проектировании, модернизации и оптимизации корпоративных веб-приложений, API, реляционных баз данных и Linux-инфраструктуры. Основная специализация: PHP (OOP, MVC, Laravel) и глубокая экспертиза в PostgreSQL (полный цикл из 4 сертификаций Postgres Professional DBA + QPT). Большой практический опыт переноса легаси C#-монолитов в веб, автоматизации бизнес-процессов и ETL-обработки данных на Python (Pandas, OpenPyXL), а также разработки сервисов на TypeScript, Node.js и NestJS.',
+        locationEn: 'Kostanay, Kazakhstan (Ready to relocate / Remote)',
+        locationRu: 'Костанай, Казахстан (Готов к релокации / Удаленно)',
         email: 'thezebrabro@gmail.com',
         phone: '+7 (705) 590-24-73 / +7 (906) 895-98-10',
         telegram: '@zebrabro',
@@ -76,37 +76,37 @@ async function main(): Promise<void> {
       data: [
         {
           profileId: profile.id,
+          name: 'PHP (OOP, SOLID, MVC Architecture, Laravel, Strict Typing, PSR Standards, RBAC)',
+          categoryEn: 'Back-End & Architecture',
+          categoryRu: 'Бэкенд и Архитектура',
+          sortOrder: 1,
+        },
+        {
+          profileId: profile.id,
           name: 'PostgreSQL (Query Optimization, Execution Plans, Indexing, Replication, Backup & Recovery)',
           categoryEn: 'Databases & SQL',
           categoryRu: 'Базы данных и SQL',
-          sortOrder: 1,
+          sortOrder: 2,
         },
         {
           profileId: profile.id,
           name: 'TypeScript / Node.js / NestJS',
           categoryEn: 'Back-End & Architecture',
           categoryRu: 'Бэкенд и Архитектура',
-          sortOrder: 2,
+          sortOrder: 3,
         },
         {
           profileId: profile.id,
           name: 'GraphQL (Apollo Server, Schema Design, DataLoader N+1 Optimization) & REST API',
           categoryEn: 'Back-End & Architecture',
           categoryRu: 'Бэкенд и Архитектура',
-          sortOrder: 3,
-        },
-        {
-          profileId: profile.id,
-          name: 'Prisma ORM / Custom Data Mapper / SQL',
-          categoryEn: 'Databases & SQL',
-          categoryRu: 'Базы данных и SQL',
           sortOrder: 4,
         },
         {
           profileId: profile.id,
-          name: 'PHP (OOP, SOLID, MVC Architecture, Strict Typing, PSR Standards, RBAC)',
-          categoryEn: 'Back-End & Architecture',
-          categoryRu: 'Бэкенд и Архитектура',
+          name: 'Prisma ORM / Custom Data Mapper / Doctrine / Eloquent / SQL',
+          categoryEn: 'Databases & SQL',
+          categoryRu: 'Базы данных и SQL',
           sortOrder: 5,
         },
         {
@@ -201,8 +201,8 @@ async function main(): Promise<void> {
       data: [
         {
           profileId: profile.id,
-          nameEn: 'Digital Business Card GraphQL API (Open-Source)',
-          nameRu: 'Цифровая визитка - GraphQL API (Open-Source)',
+          nameEn: 'Digital Business Card GraphQL API',
+          nameRu: 'Цифровая визитка (GraphQL API)',
           descriptionEn:
             'Bilingual (EN/RU) digital business card backend built with NestJS, Apollo GraphQL, Prisma ORM, and PostgreSQL. Features DataLoader and AST lookahead optimizations to eliminate the GraphQL N+1 query problem, idempotent ACID database seeding, automated E2E tests, and zero-config Docker Compose startup.',
           descriptionRu:
@@ -223,8 +223,8 @@ async function main(): Promise<void> {
         },
         {
           profileId: profile.id,
-          nameEn: 'Automated Training Group Dossier & Document Workflow Engine ("Group Dossiers")',
-          nameRu: 'Система автоматизации документооборота и формирования «Дел групп»',
+          nameEn: 'Automated Group Dossier & Document Workflow Engine',
+          nameRu: 'Система документооборота и формирования «Дел групп»',
           descriptionEn:
             'Built from scratch to automate over 50% of the training department operational workload. Ingests cross-division applications, forms training groups, calculates classroom utilization and schedules, maintains electronic attendance journals, generates cybersecurity/safety compliance forms, renders graduation certificates from templates, and compiles complete archival dossiers.',
           descriptionRu:
@@ -236,8 +236,8 @@ async function main(): Promise<void> {
         },
         {
           profileId: profile.id,
-          nameEn: 'PIOK - Legacy C# Monolith to Web Migration & SAP Data Reconciliation Platform',
-          nameRu: 'ПИОК - Миграция легаси C#-монолита в Web и платформа сверки данных SAP ERP',
+          nameEn: 'PIOK: Legacy C# Monolith to Web Migration & SAP Reconciliation',
+          nameRu: 'ПИОК: Миграция C#-монолита в Web и сверка данных SAP ERP',
           descriptionEn:
             'Migrated a core legacy C# desktop/monolith system serving 5 departments and a training polygon into a modular web platform. Implemented Python (Pandas, OpenPyXL) ETL pipelines for SAP ERP Excel exports (staff timesheets and instructor hourly payroll calculation), fuzzy string matching for deduplicating misspelled course and profession names, field-level RBAC database editing, and automated .doc/.docx document generation.',
           descriptionRu:
@@ -249,8 +249,8 @@ async function main(): Promise<void> {
         },
         {
           profileId: profile.id,
-          nameEn: 'Course Curriculum Constructor & Tariff Rule Engine (1,500+ Courses)',
-          nameRu: 'Конструктор учебных программ и движок правил тарификации (1 500+ курсов)',
+          nameEn: 'Course Curriculum Constructor & Tariff Rule Engine',
+          nameRu: 'Конструктор учебных программ и движок правил тарификации',
           descriptionEn:
             'Domain-driven curriculum management system handling 1,500+ corporate courses across 15 training formats (full-time, blended, distance, polygon). Engineered a cross-attribute validation and calculation engine managing ~50 interdependent parameters to automatically balance theory, practice, polygon, and e-learning hours alongside cost calculation.',
           descriptionRu:
@@ -262,8 +262,8 @@ async function main(): Promise<void> {
         },
         {
           profileId: profile.id,
-          nameEn: 'Real-Time Collaborative SAP Group Request Dispatch Queue',
-          nameRu: 'Real-Time система диспетчеризации заявок на создание групп в SAP',
+          nameEn: 'Real-Time SAP Group Request Dispatch Queue',
+          nameRu: 'Real-Time диспетчеризация заявок на создание групп в SAP',
           descriptionEn:
             'Multi-operator request dispatch application for annual and unplanned SAP training group creation. Features real-time state synchronization via Long-Polling (operators see claimed, completed, and canceled requests instantaneously without page reloads) backed by a comprehensive PostgreSQL audit log.',
           descriptionRu:
@@ -275,8 +275,8 @@ async function main(): Promise<void> {
         },
         {
           profileId: profile.id,
-          nameEn: 'Fault-Tolerant Node.js Video Streaming Cluster & LMS/Safety Analytics Suite',
-          nameRu: 'Отказоустойчивый видеохостинг на Node.js и комплекс аналитики Moodle / ЕИСОТ',
+          nameEn: 'Fault-Tolerant Node.js Video Cluster & LMS/Safety Analytics',
+          nameRu: 'Отказоустойчивый видеохостинг на Node.js и аналитика Moodle / ЕИСОТ',
           descriptionEn:
             'Distributed internal video streaming service built on Node.js across 4 workstation nodes over shared SMB storage with automatic client-side failover (zero downtime when individual host PCs are powered off). Paired with Python (Pandas, OpenPyXL) automation tools for LMS Moodle (bulk HR password management, hybrid paper/online exam grading with styled Excel exports) and EISOT occupational safety certification expiry tracking.',
           descriptionRu:
@@ -294,47 +294,65 @@ async function main(): Promise<void> {
         {
           profileId: profile.id,
           code: 'QPT',
-          titleEn: 'Query Performance Tuning in PostgreSQL (SQL optimization, execution plans, indexing)',
-          titleRu: 'QPT: Оптимизация запросов в PostgreSQL (планы выполнения, индексы, профилирование SQL)',
-          issuer: 'Postgres Professional',
+          titleEn: 'Query Performance Tuning in PostgreSQL (SQL development, execution plans, indexing)',
+          titleRu: 'QPT. Оптимизация запросов в PostgreSQL (Разработка и оптимизация SQL, анализ планов запросов)',
+          issuer: 'Postgres Pro',
           year: 2026,
           sortOrder: 1,
         },
         {
           profileId: profile.id,
           code: 'DBA3',
-          titleEn: 'PostgreSQL Administration - Backup & Replication (High Availability & Fault Tolerance)',
-          titleRu: 'DBA3: Администрирование PostgreSQL - Резервное копирование и репликация (Отказоустойчивость)',
-          issuer: 'Postgres Professional',
+          titleEn: 'PostgreSQL Administration. Backup & Replication (Database fault tolerance and replication)',
+          titleRu: 'DBA3. Администрирование PostgreSQL. Резервное копирование и репликация (Отказоустойчивость и репликация СУБД)',
+          issuer: 'Postgres Pro',
           year: 2026,
           sortOrder: 2,
         },
         {
           profileId: profile.id,
           code: 'DBA2',
-          titleEn: 'PostgreSQL Administration - Tuning & Monitoring (Performance Configuration & Diagnostics)',
-          titleRu: 'DBA2: Администрирование PostgreSQL - Настройка и мониторинг производительности',
-          issuer: 'Postgres Professional',
+          titleEn: 'PostgreSQL Administration. Tuning & Monitoring (Performance tuning and monitoring)',
+          titleRu: 'DBA2. Администрирование PostgreSQL. Настройка и мониторинг (Настройка производительности и мониторинг СУБД)',
+          issuer: 'Postgres Pro',
           year: 2026,
           sortOrder: 3,
         },
         {
           profileId: profile.id,
           code: 'DBA1',
-          titleEn: 'PostgreSQL Administration - Core Course (Database Architecture & Core DBA Operations)',
-          titleRu: 'DBA1: Администрирование PostgreSQL - Базовый курс (Архитектура СУБД и эксплуатация)',
-          issuer: 'Postgres Professional',
+          titleEn: 'PostgreSQL Administration. Core Course (Architecture and core administration of PostgreSQL)',
+          titleRu: 'DBA1. Администрирование PostgreSQL. Базовый курс (Архитектура и базовое администрирование PostgreSQL)',
+          issuer: 'Postgres Pro',
           year: 2026,
           sortOrder: 4,
         },
         {
           profileId: profile.id,
-          code: 'ALTSHELL / ALTSEC / ALTVIRT',
-          titleEn: '3-Course Linux Track: Advanced Shell Scripting, Linux OS Security & Virtualization',
-          titleRu: 'Трехступенчатый курс BaseALT: Автоматизация в командной оболочке, Безопасность и Виртуализация Linux',
-          issuer: 'BaseALT Linux',
+          code: 'ALTSHELL',
+          titleEn: 'ALTSHELL. Automation (Shell Scripting) in ALT Linux (Linux system administration)',
+          titleRu: 'ALTSHELL. Автоматизация (shell-скрипты) в ОС «Альт» (Системное администрирование Linux)',
+          issuer: 'BaseALT (Базальт СПО)',
           year: 2025,
           sortOrder: 5,
+        },
+        {
+          profileId: profile.id,
+          code: 'ALTSEC',
+          titleEn: 'ALTSEC. Information Security in ALT Linux (Linux OS security and information protection)',
+          titleRu: 'ALTSEC. Информационная безопасность в ОС «Альт» (Безопасность операционных систем Linux и ИБ)',
+          issuer: 'BaseALT (Базальт СПО)',
+          year: 2025,
+          sortOrder: 6,
+        },
+        {
+          profileId: profile.id,
+          code: 'ALTVIRT',
+          titleEn: 'ALTVIRT. Virtualization in ALT Linux (Virtualization and cloud technologies in Linux)',
+          titleRu: 'ALTVIRT. Виртуализация в ОС «Альт» (Виртуализация и облачные технологии в Linux)',
+          issuer: 'BaseALT (Базальт СПО)',
+          year: 2025,
+          sortOrder: 7,
         },
       ],
     });
