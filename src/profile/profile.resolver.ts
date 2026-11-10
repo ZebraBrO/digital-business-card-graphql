@@ -11,17 +11,6 @@ import { SocialLinkModel } from './models/social-link.model';
 import { ProfileService } from './profile.service';
 import { extractRequestedRelations } from './utils/graphql-ast.util';
 
-/**
- * Слой представления GraphQL (GraphQL Presentation Layer).
- *
- * Принцип разделения ответственности (SoC):
- * Резолвер НЕ обращается к базе данных напрямую (здесь нет импорта PrismaService).
- * Он отвечает только за:
- * 1. Прием аргументов GraphQL-запроса (`lang`, `strategy`) и анализ AST (`@Info()`).
- * 2. Вызов бизнес-логики из `ProfileService`.
- * 3. Разрешение вложенных полей (`@ResolveField`) через батчинг `ProfileDataLoader`
- *    (либо возврат уже предзагруженных данных при выборе стратегии `AST_JOIN`).
- */
 @Resolver(() => ProfileModel)
 export class ProfileResolver {
   constructor(
@@ -31,21 +20,17 @@ export class ProfileResolver {
 
   @Query(() => ProfileModel, {
     name: 'profile',
-    description:
-      'Получить цифровую визитку специалиста (профиль, ссылки, навыки, опыт работы, проекты и сертификации). По умолчанию возвращает данные на английском языке (EN) с оптимизацией вложенных запросов через DataLoader.',
+    description: 'Fetch specialist profile, skills, experience, projects, and certifications',
   })
   async getProfile(
     @Args('lang', {
       type: () => Language,
       defaultValue: Language.EN,
-      description: 'Язык возвращаемых данных: EN (по умолчанию) или RU',
     })
     lang: Language,
     @Args('strategy', {
       type: () => OptimizationStrategy,
       defaultValue: OptimizationStrategy.DATALOADER,
-      description:
-        'Стратегия оптимизации запросов к БД для вложенных полей: DATALOADER (по умолчанию) или AST_JOIN',
     })
     strategy: OptimizationStrategy,
     @Info() info: GraphQLResolveInfo,
@@ -62,7 +47,6 @@ export class ProfileResolver {
   async resolveLinks(
     @Parent() profile: ProfileModel,
   ): Promise<SocialLinkModel[]> {
-    // Если связи уже были предзагружены стратегией AST_JOIN — отдаем их сразу без запроса к БД
     if (profile.links) {
       return profile.links;
     }

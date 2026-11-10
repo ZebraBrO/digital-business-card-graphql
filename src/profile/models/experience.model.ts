@@ -1,21 +1,19 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 
-@ObjectType('Experience', {
-  description: 'Место коммерческой работы и ключевые достижения',
-})
+@ObjectType('Experience')
 export class ExperienceModel {
-  @Field(() => ID, { description: 'Уникальный идентификатор записи опыта работы (UUID)' })
+  @Field(() => ID)
   id!: string;
 
-  @Field(() => String, { description: 'Название компании / организации' })
+  @Field(() => String)
   company!: string;
 
-  @Field(() => String, { description: 'Занимаемая должность' })
+  @Field(() => String)
   position!: string;
 
-  @Field(() => String, { description: 'Период работы' })
+  @Field(() => String)
   period!: string;
 
-  @Field(() => [String], { description: 'Список ключевых инженерных достижений на данном месте работы' })
+  @Field(() => [String])
   achievements!: string[];
 }

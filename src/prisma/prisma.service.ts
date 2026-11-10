@@ -6,16 +6,6 @@ import {
 } from '@nestjs/common';
 import { Prisma, PrismaClient } from '@prisma/client';
 
-/**
- * Сервис доступа к базе данных (Data Access Layer).
- *
- * Наследуется от сгенерированного PrismaClient и интегрируется в жизненный цикл NestJS:
- * - OnModuleInit: открывает пул соединений с PostgreSQL при старте приложения.
- * - OnModuleDestroy: корректно закрывает соединения при остановке контейнера.
- *
- * В режиме разработки логирует все выполняемые SQL-запросы и время их выполнения (ms),
- * что позволяет наглядно контролировать отсутствие проблемы N+1 в GraphQL.
- */
 @Injectable()
 export class PrismaService
   extends PrismaClient<Prisma.PrismaClientOptions, 'query' | 'error' | 'warn'>

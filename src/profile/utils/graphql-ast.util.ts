@@ -1,8 +1,5 @@
 import { FieldNode, GraphQLResolveInfo, SelectionSetNode } from 'graphql';
 
-/**
- * Список поддерживаемых вложенных связей (relations) модели Profile.
- */
 export interface RequestedProfileRelations {
   links: boolean;
   skills: boolean;
@@ -11,18 +8,6 @@ export interface RequestedProfileRelations {
   certifications: boolean;
 }
 
-/**
- * Метод оптимизации №2: Анализ AST-дерева запроса GraphQL (AST Lookahead).
- *
- * Как это работает:
- * Прежде чем выполнить запрос в базу данных, Apollo Server строит из текста GraphQL-запроса
- * Абстрактное Синтаксическое Дерево (AST — Abstract Syntax Tree) и передает его в `@Info()`.
- *
- * Эта функция рекурсивно обходит узлы `SelectionSet` (включая именованные и инлайн-фрагменты)
- * и определяет, какие именно дочерние таблицы реально запросил клиент.
- * Благодаря этому Prisma может подгрузить ТОЛЬКО запрошенные таблицы сразу через `include`,
- * не делая лишних запросов к таблицам, которые клиент не просил.
- */
 export function extractRequestedRelations(
   info: GraphQLResolveInfo,
 ): RequestedProfileRelations {

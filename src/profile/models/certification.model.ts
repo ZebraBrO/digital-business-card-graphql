@@ -1,21 +1,19 @@
 import { Field, ID, Int, ObjectType } from '@nestjs/graphql';
 
-@ObjectType('Certification', {
-  description: 'Профессиональная сертификация (Postgres Professional DBA/QPT, BaseALT Linux)',
-})
+@ObjectType('Certification')
 export class CertificationModel {
-  @Field(() => ID, { description: 'Уникальный идентификатор сертификата (UUID)' })
+  @Field(() => ID)
   id!: string;
 
-  @Field(() => String, { description: 'Код сертификации (например: QPT, DBA3, DBA2, DBA1)' })
+  @Field(() => String)
   code!: string;
 
-  @Field(() => String, { description: 'Полное название курса / сертификации' })
+  @Field(() => String)
   title!: string;
 
-  @Field(() => String, { description: 'Сертифицирующий центр (Postgres Professional, BaseALT)' })
+  @Field(() => String)
   issuer!: string;
 
-  @Field(() => Int, { description: 'Год получения сертификата' })
+  @Field(() => Int)
   year!: number;
 }

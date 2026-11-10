@@ -9,24 +9,10 @@ import {
 import * as DataLoader from 'dataloader';
 import { PrismaService } from '../../prisma/prisma.service';
 
-/**
- * Метод оптимизации №1: Паттерн DataLoader (Batching & Request-Scoped Caching).
- *
- * Почему `Scope.REQUEST`?
- * DataLoader создается заново для каждого входящего HTTP/GraphQL-запроса:
- * 1. В рамках одного тика Event Loop Node.js он собирает все вызовы `.load(profileId)`
- *    от дочерних резолверов `@ResolveField()` и склеивает их в ОДИН SQL-запрос
- *    вида `SELECT * FROM skills WHERE profile_id IN ($1, $2, ...) ORDER BY sort_order ASC`.
- * 2. Кэширует результаты только на время жизни текущего запроса, чтобы не было утечек памяти
- *    и устаревших данных между разными запросами.
- */
 @Injectable({ scope: Scope.REQUEST })
 export class ProfileDataLoader {
   constructor(private readonly prisma: PrismaService) {}
 
-  /**
-   * Батч-загрузчик профессиональных ссылок по массиву profileIds
-   */
   public readonly linksLoader = new DataLoader<string, SocialLink[]>(
     async (profileIds: readonly string[]) => {
       const rows = await this.prisma.socialLink.findMany({
@@ -37,9 +23,6 @@ export class ProfileDataLoader {
     },
   );
 
-  /**
-   * Батч-загрузчик технических навыков по массиву profileIds
-   */
   public readonly skillsLoader = new DataLoader<string, Skill[]>(
     async (profileIds: readonly string[]) => {
       const rows = await this.prisma.skill.findMany({
@@ -50,9 +33,6 @@ export class ProfileDataLoader {
     },
   );
 
-  /**
-   * Батч-загрузчик опыта работы по массиву profileIds
-   */
   public readonly experienceLoader = new DataLoader<string, Experience[]>(
     async (profileIds: readonly string[]) => {
       const rows = await this.prisma.experience.findMany({
@@ -63,9 +43,6 @@ export class ProfileDataLoader {
     },
   );
 
-  /**
-   * Батч-загрузчик проектов по массиву profileIds
-   */
   public readonly projectsLoader = new DataLoader<string, Project[]>(
     async (profileIds: readonly string[]) => {
       const rows = await this.prisma.project.findMany({
@@ -76,9 +53,6 @@ export class ProfileDataLoader {
     },
   );
 
-  /**
-   * Батч-загрузчик сертификаций по массиву profileIds
-   */
   public readonly certificationsLoader = new DataLoader<
     string,
     Certification[]
@@ -90,11 +64,6 @@ export class ProfileDataLoader {
     return this.groupByProfileId(profileIds, rows);
   });
 
-  /**
-   * Важное требование контракта DataLoader:
-   * Возвращаемый массив групп ОБЯЗАН иметь ту же длину и тот же порядок ключей,
-   * что и входной массив `profileIds`.
-   */
   private groupByProfileId<T extends { profileId: string }>(
     profileIds: readonly string[],
     rows: T[],

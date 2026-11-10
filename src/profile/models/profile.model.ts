@@ -7,62 +7,47 @@ import { SkillModel } from './skill.model';
 import { SocialLinkModel } from './social-link.model';
 
 @ObjectType('Profile', {
-  description: 'Цифровая визитка специалиста (основной профиль и связанные коллекции)',
+  description: 'Specialist profile and related collections',
 })
 export class ProfileModel {
-  @Field(() => ID, { description: 'Уникальный идентификатор профиля (UUID)' })
+  @Field(() => ID)
   id!: string;
 
-  @Field(() => String, { description: 'Имя и фамилия специалиста' })
+  @Field(() => String)
   name!: string;
 
-  @Field(() => String, { description: 'Специализация / грейд / основной профиль' })
+  @Field(() => String)
   title!: string;
 
-  @Field(() => String, { description: 'Краткое профессиональное описание (Summary / Bio)' })
+  @Field(() => String)
   description!: string;
 
-  @Field(() => String, { description: 'Локация и готовность к релокации' })
+  @Field(() => String)
   location!: string;
 
-  @Field(() => String, { description: 'Контактный Email' })
+  @Field(() => String)
   email!: string;
 
-  @Field(() => String, { description: 'Контактный телефон' })
+  @Field(() => String)
   phone!: string;
 
-  @Field(() => String, { description: 'Никнейм в Telegram' })
+  @Field(() => String)
   telegram!: string;
 
-  @Field(() => [SocialLinkModel], {
-    description: 'Ссылки на GitHub, Telegram и другие профессиональные ресурсы',
-  })
+  @Field(() => [SocialLinkModel])
   links?: SocialLinkModel[];
 
-  @Field(() => [SkillModel], {
-    description: 'Список технических навыков и компетенций',
-  })
+  @Field(() => [SkillModel])
   skills?: SkillModel[];
 
-  @Field(() => [ExperienceModel], {
-    description: 'Коммерческий опыт работы и достижения',
-  })
+  @Field(() => [ExperienceModel])
   experience?: ExperienceModel[];
 
-  @Field(() => [ProjectModel], {
-    description: 'Реализованные проекты (Open-Source и коммерческие системы)',
-  })
+  @Field(() => [ProjectModel])
   projects?: ProjectModel[];
 
-  @Field(() => [CertificationModel], {
-    description: 'Профессиональные сертификации (PostgreSQL DBA/QPT, Linux)',
-  })
+  @Field(() => [CertificationModel])
   certifications?: CertificationModel[];
 
-  /**
-   * Внутреннее служебное свойство (не публикуется в схему GraphQL, т.к. нет декоратора @Field).
-   * Передает выбранный язык запроса (EN / RU) от корневого резолвера `profile`
-   * во все дочерние резолверы `@ResolveField()`.
-   */
   _lang?: Language;
 }

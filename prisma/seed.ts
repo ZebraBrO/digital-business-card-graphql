@@ -2,19 +2,8 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-/**
- * Идемпотентный скрипт начального заполнения базы данных (Database Seeding).
- *
- * Инженерное решение (PostgreSQL MVCC + ACID Transaction):
- * Так как при каждом старте Docker-контейнера автоматически вызывается `prisma db seed`,
- * скрипт ОБЯЗАН быть идемпотентным (повторный запуск не должен создавать дубликаты или падать).
- *
- * Мы оборачиваем обновление профиля (`upsert` по уникальному `slug`) и перезапись
- * дочерних коллекций в единую транзакцию `prisma.$transaction(...)`.
- * Благодаря MVCC в PostgreSQL читающие транзакции никогда не увидят промежуточного состояния.
- */
 async function main(): Promise<void> {
-  console.log('🌱 Starting database seed for profile: Dmitrii Sivirin...');
+  console.log('Starting database seed for profile: Dmitrii Sivirin...');
 
   await prisma.$transaction(async (tx) => {
     const profile = await tx.profile.upsert({
@@ -52,7 +41,6 @@ async function main(): Promise<void> {
       },
     });
 
-    // Очищаем старые связанные записи перед повторной вставкой внутри транзакции
     await Promise.all([
       tx.socialLink.deleteMany({ where: { profileId: profile.id } }),
       tx.skill.deleteMany({ where: { profileId: profile.id } }),
@@ -61,7 +49,6 @@ async function main(): Promise<void> {
       tx.certification.deleteMany({ where: { profileId: profile.id } }),
     ]);
 
-    // 1. Профессиональные ссылки
     await tx.socialLink.createMany({
       data: [
         {
@@ -85,7 +72,6 @@ async function main(): Promise<void> {
       ],
     });
 
-    // 2. Профессиональные навыки
     await tx.skill.createMany({
       data: [
         {
@@ -154,7 +140,6 @@ async function main(): Promise<void> {
       ],
     });
 
-    // 3. Опыт работы
     await tx.experience.createMany({
       data: [
         {
@@ -163,12 +148,12 @@ async function main(): Promise<void> {
           companyRu: 'ПАО «Сургутнефтегаз» (Центр политехнического обучения)',
           positionEn: 'Web Programmer / Back-End Developer (PHP / Python / JS / PostgreSQL)',
           positionRu: 'Web-программист / Backend-разработчик (PHP / Python / JS / PostgreSQL)',
-          periodEn: 'June 2025 – Present (1 year 5 months)',
-          periodRu: 'Июнь 2025 – Настоящее время (1 год 5 месяцев)',
+          periodEn: 'June 2025 - Present (1 year 5 months)',
+          periodRu: 'Июнь 2025 - Настоящее время (1 год 5 месяцев)',
           achievementsEn: [
             'Designed, developed, and maintained the back-end architecture, REST APIs, and web interfaces for 15+ internal enterprise automation systems serving corporate training across regional divisions.',
             'Migrated a massive legacy C# monolith (PIOK) serving 5 departments and a training polygon into a modern web application with fuzzy string matching for course/profession deduplication and SAP ERP data ingestion.',
-            'Built an end-to-end Training Group Dossier & Workflow Engine from scratch that automated over 50% of the department’s operational document workflow.',
+            'Built an end-to-end Training Group Dossier & Workflow Engine from scratch that automated over 50% of the department operational document workflow.',
             'Automated ~40% of routine operational workflows by integrating Python services (Pandas, OpenPyXL) for SAP data reconciliation, test grading analytics, and dynamic Excel/Word report generation.',
             'Engineered a fault-tolerant 4-node Node.js video streaming service with automatic client-side failover over shared network storage.',
             'Provisioned and maintained the production Linux server environment from scratch (Nginx, PostgreSQL, PHP-FPM, systemd) and eliminated complex PostgreSQL query bottlenecks.',
@@ -191,8 +176,8 @@ async function main(): Promise<void> {
           companyRu: 'Учи.ру (Uchi.ru)',
           positionEn: 'Web & Infrastructure Engineer (PHP / Python / JS / Linux)',
           positionRu: 'Инженер веб-разработки и инфраструктуры (PHP / Python / JS / Linux)',
-          periodEn: 'March 2022 – May 2025 (3 years 3 months)',
-          periodRu: 'Март 2022 – Май 2025 (3 года 3 месяца)',
+          periodEn: 'March 2022 - May 2025 (3 years 3 months)',
+          periodRu: 'Март 2022 - Май 2025 (3 года 3 месяца)',
           achievementsEn: [
             'Developed and maintained internal web services, scripts, and automation tools in PHP, Python, and JavaScript to manage accounting, scheduling, and educational workflows.',
             'Designed relational database schemas, wrote optimized SQL queries, and administered PostgreSQL and MySQL databases.',
@@ -212,15 +197,14 @@ async function main(): Promise<void> {
       ],
     });
 
-    // 4. Проекты (Открытый репозиторий + 5 флагманских коммерческих систем под NDA)
     await tx.project.createMany({
       data: [
         {
           profileId: profile.id,
           nameEn: 'Digital Business Card GraphQL API (Open-Source)',
-          nameRu: 'Цифровая визитка — GraphQL API (Open-Source)',
+          nameRu: 'Цифровая визитка - GraphQL API (Open-Source)',
           descriptionEn:
-            'Bilingual (EN/RU) digital business card backend built with NestJS, Apollo GraphQL, Prisma ORM, and PostgreSQL. Features DataLoader & AST lookahead optimizations to eliminate the GraphQL N+1 query problem, idempotent ACID database seeding, automated E2E tests, and zero-config Docker Compose startup.',
+            'Bilingual (EN/RU) digital business card backend built with NestJS, Apollo GraphQL, Prisma ORM, and PostgreSQL. Features DataLoader and AST lookahead optimizations to eliminate the GraphQL N+1 query problem, idempotent ACID database seeding, automated E2E tests, and zero-config Docker Compose startup.',
           descriptionRu:
             'Двуязычный (RU/EN) бэкенд цифровой визитки на NestJS, Apollo GraphQL, Prisma ORM и PostgreSQL. Включает оптимизацию вложенных запросов (DataLoader и анализ AST-дерева запроса против проблемы N+1), идемпотентное заполнение БД в транзакции, E2E-тесты и запуск с нуля одной командой в Docker Compose.',
           url: 'https://github.com/zebrabro/digital-business-card-graphql',
@@ -242,23 +226,23 @@ async function main(): Promise<void> {
           nameEn: 'Automated Training Group Dossier & Document Workflow Engine ("Group Dossiers")',
           nameRu: 'Система автоматизации документооборота и формирования «Дел групп»',
           descriptionEn:
-            'Built from scratch to automate over 50% of the training department’s operational workload. Ingests cross-division applications, forms training groups, calculates classroom utilization and schedules, maintains electronic attendance journals, generates cybersecurity/safety compliance forms, renders graduation certificates from templates, and compiles complete archival dossiers.',
+            'Built from scratch to automate over 50% of the training department operational workload. Ingests cross-division applications, forms training groups, calculates classroom utilization and schedules, maintains electronic attendance journals, generates cybersecurity/safety compliance forms, renders graduation certificates from templates, and compiles complete archival dossiers.',
           descriptionRu:
             'Разработанная с нуля комплексная система, автоматизировавшая более 50% работы отдела. Собирает заявки от структурных подразделений, формирует учебные группы, рассчитывает расписание и загрузку аудиторного фонда, ведет электронные журналы, генерирует бланки инструктажей по ИБ, печатает сертификаты по шаблонам и собирает итоговое архивное дело группы.',
-          url: 'Corporate NDA (Surgutneftegas PJSC — Internal Enterprise System)',
+          url: 'Corporate NDA (Surgutneftegas PJSC - Internal Enterprise System)',
           techStack: ['PHP 7.4 (OOP/MVC)', 'PostgreSQL', 'Python (OpenPyXL)', 'JavaScript (ES6+)', 'HTML5/SASS'],
           isNda: true,
           sortOrder: 2,
         },
         {
           profileId: profile.id,
-          nameEn: 'PIOK — Legacy C# Monolith to Web Migration & SAP Data Reconciliation Platform',
-          nameRu: 'ПИОК — Миграция легаси C#-монолита в Web и платформа сверки данных SAP ERP',
+          nameEn: 'PIOK - Legacy C# Monolith to Web Migration & SAP Data Reconciliation Platform',
+          nameRu: 'ПИОК - Миграция легаси C#-монолита в Web и платформа сверки данных SAP ERP',
           descriptionEn:
             'Migrated a core legacy C# desktop/monolith system serving 5 departments and a training polygon into a modular web platform. Implemented Python (Pandas, OpenPyXL) ETL pipelines for SAP ERP Excel exports (staff timesheets and instructor hourly payroll calculation), fuzzy string matching for deduplicating misspelled course and profession names, field-level RBAC database editing, and automated .doc/.docx document generation.',
           descriptionRu:
             'Перенос ключевого легаси-монолита с C# на современную веб-архитектуру для 5 отделов и учебного полигона. Реализованы пайплайны на Python (Pandas, OpenPyXL) для обработки выгрузок из SAP ERP (табелирование сотрудников и расчет почасовой оплаты преподавателей), алгоритм нечеткого поиска (Fuzzy Matching) для исправления опечаток в названиях курсов и профессий, ролевой доступ (RBAC) к редактированию справочников БД и генерация документов .doc/.docx по шаблонам.',
-          url: 'Corporate NDA (Surgutneftegas PJSC — Internal Enterprise System)',
+          url: 'Corporate NDA (Surgutneftegas PJSC - Internal Enterprise System)',
           techStack: ['PHP 7.4', 'C# (.NET Legacy)', 'Python (Pandas, OpenPyXL)', 'PostgreSQL', 'JavaScript'],
           isNda: true,
           sortOrder: 3,
@@ -271,7 +255,7 @@ async function main(): Promise<void> {
             'Domain-driven curriculum management system handling 1,500+ corporate courses across 15 training formats (full-time, blended, distance, polygon). Engineered a cross-attribute validation and calculation engine managing ~50 interdependent parameters to automatically balance theory, practice, polygon, and e-learning hours alongside cost calculation.',
           descriptionRu:
             'Система проектирования и управления базой из 1 500+ учебных курсов (15 типов обучения: с отрывом, частичным отрывом, электронно-смешанные, полигонные). Реализован движок перекрестной валидации ~50 взаимозависимых атрибутов курса с автоматическим сведением баланса часов (теория, практика, полигон, эл. занятость) и расчетом стоимости.',
-          url: 'Corporate NDA (Surgutneftegas PJSC — Internal Enterprise System)',
+          url: 'Corporate NDA (Surgutneftegas PJSC - Internal Enterprise System)',
           techStack: ['PHP 7.4 (OOP/MVC)', 'PostgreSQL', 'JavaScript (ES6+)', 'REST API'],
           isNda: true,
           sortOrder: 4,
@@ -284,7 +268,7 @@ async function main(): Promise<void> {
             'Multi-operator request dispatch application for annual and unplanned SAP training group creation. Features real-time state synchronization via Long-Polling (operators see claimed, completed, and canceled requests instantaneously without page reloads) backed by a comprehensive PostgreSQL audit log.',
           descriptionRu:
             'Многопользовательская система диспетчеризации плановых и внеплановых заявок от руководителей подразделений на формирование учебных групп в SAP. Реализована мгновенная синхронизация статусов между всеми сотрудниками отдела через Long-Polling (взятие заявки в работу, выполнение, удаление) с полным логированием действий в PostgreSQL.',
-          url: 'Corporate NDA (Surgutneftegas PJSC — Internal Enterprise System)',
+          url: 'Corporate NDA (Surgutneftegas PJSC - Internal Enterprise System)',
           techStack: ['PHP 7.4', 'JavaScript (Long-Polling / Async Fetch)', 'PostgreSQL', 'RBAC'],
           isNda: true,
           sortOrder: 5,
@@ -297,7 +281,7 @@ async function main(): Promise<void> {
             'Distributed internal video streaming service built on Node.js across 4 workstation nodes over shared SMB storage with automatic client-side failover (zero downtime when individual host PCs are powered off). Paired with Python (Pandas, OpenPyXL) automation tools for LMS Moodle (bulk HR password management, hybrid paper/online exam grading with styled Excel exports) and EISOT occupational safety certification expiry tracking.',
           descriptionRu:
             'Распределенный внутренний видеохостинг на Node.js, запущенный на 4 узлах поверх общего сетевого хранилища с клиентской балансировкой и отказоустойчивостью (автоматическое переключение на первый доступный сервер при выключении ПК сотрудника). Дополнен сервисами на Python (Pandas, OpenPyXL) для LMS Moodle (массовый сброс паролей для ОК, сводная аналитика электронного и бумажного тестирования в Excel) и мониторинга сроков проверки знаний по охране труда (ЕИСОТ).',
-          url: 'Corporate NDA (Surgutneftegas PJSC — Internal Enterprise System)',
+          url: 'Corporate NDA (Surgutneftegas PJSC - Internal Enterprise System)',
           techStack: ['Node.js', 'Python (Pandas, OpenPyXL)', 'PHP 7.4', 'PostgreSQL', 'Moodle LMS'],
           isNda: true,
           sortOrder: 6,
@@ -305,7 +289,6 @@ async function main(): Promise<void> {
       ],
     });
 
-    // 5. Профессиональные сертификации
     await tx.certification.createMany({
       data: [
         {
@@ -320,8 +303,8 @@ async function main(): Promise<void> {
         {
           profileId: profile.id,
           code: 'DBA3',
-          titleEn: 'PostgreSQL Administration — Backup & Replication (High Availability & Fault Tolerance)',
-          titleRu: 'DBA3: Администрирование PostgreSQL — Резервное копирование и репликация (Отказоустойчивость)',
+          titleEn: 'PostgreSQL Administration - Backup & Replication (High Availability & Fault Tolerance)',
+          titleRu: 'DBA3: Администрирование PostgreSQL - Резервное копирование и репликация (Отказоустойчивость)',
           issuer: 'Postgres Professional',
           year: 2026,
           sortOrder: 2,
@@ -329,8 +312,8 @@ async function main(): Promise<void> {
         {
           profileId: profile.id,
           code: 'DBA2',
-          titleEn: 'PostgreSQL Administration — Tuning & Monitoring (Performance Configuration & Diagnostics)',
-          titleRu: 'DBA2: Администрирование PostgreSQL — Настройка и мониторинг производительности',
+          titleEn: 'PostgreSQL Administration - Tuning & Monitoring (Performance Configuration & Diagnostics)',
+          titleRu: 'DBA2: Администрирование PostgreSQL - Настройка и мониторинг производительности',
           issuer: 'Postgres Professional',
           year: 2026,
           sortOrder: 3,
@@ -338,8 +321,8 @@ async function main(): Promise<void> {
         {
           profileId: profile.id,
           code: 'DBA1',
-          titleEn: 'PostgreSQL Administration — Core Course (Database Architecture & Core DBA Operations)',
-          titleRu: 'DBA1: Администрирование PostgreSQL — Базовый курс (Архитектура СУБД и эксплуатация)',
+          titleEn: 'PostgreSQL Administration - Core Course (Database Architecture & Core DBA Operations)',
+          titleRu: 'DBA1: Администрирование PostgreSQL - Базовый курс (Архитектура СУБД и эксплуатация)',
           issuer: 'Postgres Professional',
           year: 2026,
           sortOrder: 4,
@@ -357,12 +340,12 @@ async function main(): Promise<void> {
     });
   });
 
-  console.log('✅ Database seed completed successfully (EN + RU data loaded).');
+  console.log('Database seed completed successfully (EN + RU data loaded).');
 }
 
 main()
   .catch((error) => {
-    console.error('❌ Database seed failed:', error);
+    console.error('Database seed failed:', error);
     process.exit(1);
   })
   .finally(async () => {

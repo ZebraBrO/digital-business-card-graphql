@@ -25,16 +25,6 @@ type ProfileWithOptionalRelations = Profile & {
   certifications?: Certification[];
 };
 
-/**
- * Слой бизнес-логики профиля (Business Logic Layer).
- *
- * Отвечает за:
- * 1. Запрос данных профиля из PrismaService (в зависимости от выбранной стратегии оптимизации:
- *    либо легковесный запрос только корневой записи под DataLoader,
- *    либо запрос с точечным `include` на основе анализа AST-дерева запроса).
- * 2. Маппинг билингвальных полей БД (`*En` / `*Ru`) в чистую доменную модель GraphQL
- *    в соответствии с запрошенным языком (`Language.EN` или `Language.RU`).
- */
 @Injectable()
 export class ProfileService {
   constructor(private readonly prisma: PrismaService) {}
@@ -73,7 +63,7 @@ export class ProfileService {
 
     if (!record) {
       throw new NotFoundException(
-        'Profile "dmitrii-sivirin" not found in the database. Make sure prisma db seed has been executed.',
+        'Profile "dmitrii-sivirin" not found in the database.',
       );
     }
 

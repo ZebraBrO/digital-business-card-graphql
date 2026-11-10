@@ -1,7 +1,7 @@
 {
   "name": "digital-business-card-graphql",
   "version": "1.0.0",
-  "description": "Digital Business Card Backend API (NestJS, GraphQL, Prisma, PostgreSQL, Docker) — Dmitrii Sivirin",
+  "description": "Digital Business Card Backend API (NestJS, GraphQL, Prisma, PostgreSQL, Docker) - Dmitrii Sivirin",
   "author": "Dmitrii Sivirin <thezebrabro@gmail.com>",
   "private": false,
   "license": "MIT",

@@ -1,26 +1,22 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 
-@ObjectType('Project', {
-  description: 'Реализованный проект (Open-Source репозиторий или коммерческая система под NDA)',
-})
+@ObjectType('Project')
 export class ProjectModel {
-  @Field(() => ID, { description: 'Уникальный идентификатор проекта (UUID)' })
+  @Field(() => ID)
   id!: string;
 
-  @Field(() => String, { description: 'Название проекта' })
+  @Field(() => String)
   name!: string;
 
-  @Field(() => String, { description: 'Подробное описание архитектуры и решенных бизнес-задач' })
+  @Field(() => String)
   description!: string;
 
-  @Field(() => String, {
-    description: 'Ссылка на проект/репозиторий GitHub или статус коммерческого NDA',
-  })
+  @Field(() => String)
   url!: string;
 
-  @Field(() => [String], { description: 'Стек использованных технологий' })
+  @Field(() => [String])
   techStack!: string[];
 
-  @Field(() => Boolean, { description: 'Флаг нахождения исходного кода под корпоративным NDA' })
+  @Field(() => Boolean)
   isNda!: boolean;
 }

@@ -1,15 +1,13 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 
-@ObjectType('SocialLink', {
-  description: 'Ссылка на профессиональный ресурс (GitHub, Telegram, Email и др.)',
-})
+@ObjectType('SocialLink')
 export class SocialLinkModel {
-  @Field(() => ID, { description: 'Уникальный идентификатор ссылки (UUID)' })
+  @Field(() => ID)
   id!: string;
 
-  @Field(() => String, { description: 'Название платформы (GitHub, Telegram, LinkedIn)' })
+  @Field(() => String)
   platform!: string;
 
-  @Field(() => String, { description: 'URL-адрес профиля или ресурса' })
+  @Field(() => String)
   url!: string;
 }
